@@ -12,11 +12,11 @@ import (
 func DBSet() *mongo.Client {
 	option := options.Client().ApplyURI("mongodb://localhost:27017")
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
 
 	client, err := mongo.Connect(ctx, option)
 
 	if err != nil {
-		cancel()
 		log.Fatal(err)
 	}
 
